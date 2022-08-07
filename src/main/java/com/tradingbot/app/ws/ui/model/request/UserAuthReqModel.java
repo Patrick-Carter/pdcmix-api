@@ -1,9 +1,17 @@
 package com.tradingbot.app.ws.ui.model.request;
 
-public class UserLoginReqModel {
+public class UserAuthReqModel {
+    private String username;
     private String email;
     private String password;
 
+    // getters and settings for fields
+    public String getUsername() {
+        return username;
+    }
+    public void setUsername(String username) {
+        this.username = username;
+    }
     public String getEmail() {
         return email;
     }

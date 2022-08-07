@@ -1,23 +1,33 @@
 package com.tradingbot.app.ws.shared.dto;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 public class UserDto implements Serializable {
     private static final long serialVersionUID = 7180981809818098L;
-    private long id;
+    private UUID id;
     private String username;
     private String email;
-    private String userId;
     private String password;
     private String encryptedPassword;
     private String emailVerificationToken;
-    private boolean emailVerificationStatus;
+    private boolean emailVerificationStatus = false;
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     // getters and setters
-    public long getId() {
+    public UUID getId() {
         return id;
     }
-    public void setId(long id) {
+    
+    public void setId(UUID id) {
         this.id = id;
     }
     public String getUsername() {
@@ -31,12 +41,6 @@ public class UserDto implements Serializable {
     }
     public void setEmail(String email) {
         this.email = email;
-    }
-    public String getUserId() {
-        return userId;
-    }
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
     public String getPassword() {
         return password;
