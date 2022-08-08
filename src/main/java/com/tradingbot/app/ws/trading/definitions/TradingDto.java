@@ -1,6 +1,6 @@
 package com.tradingbot.app.ws.trading.definitions;
 
-public class TradingDefinition {
+public class TradingDto {
     String indicator;
     String buyRule;
     String sellRule;
@@ -8,7 +8,7 @@ public class TradingDefinition {
 
     int[] settings;
 
-    public TradingDefinition(String indicator, String buyRule, String sellRule, String priceMoment, int[] settings) {
+    public TradingDto(String indicator, String buyRule, String sellRule, String priceMoment, int[] settings) {
         this.indicator = indicator;
         this.buyRule = buyRule;
         this.sellRule = sellRule;

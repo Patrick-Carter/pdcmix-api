@@ -9,11 +9,10 @@ import org.ta4j.core.BaseStrategy;
 import org.ta4j.core.Indicator;
 import org.ta4j.core.Rule;
 import org.ta4j.core.Strategy;
-import org.ta4j.core.indicators.helpers.PriceIndicator;
 import org.ta4j.core.num.Num;
 import org.ta4j.core.rules.AbstractRule;
 
-import com.tradingbot.app.ws.trading.definitions.TradingDefinition;
+import com.tradingbot.app.ws.trading.definitions.TradingDto;
 import com.tradingbot.app.ws.trading.factories.AbstractRuleFactory;
 import com.tradingbot.app.ws.trading.factories.IndicatorFactory;
 import com.tradingbot.app.ws.trading.factories.PriceSelectionFactory;
@@ -22,21 +21,23 @@ import com.tradingbot.app.ws.trading.factories.PriceSelectionFactory;
 public class StrategyGenerator {
 
     @Autowired
-    private IndicatorFactory indicatorFactory;
+    private IndicatorFactory indicatorFactory = new IndicatorFactory();
 
     @Autowired
-    AbstractRuleFactory ruleFactory;
+    private AbstractRuleFactory ruleFactory = new AbstractRuleFactory();
 
     @Autowired
-    PriceSelectionFactory priceSelectionFactory;
+    private PriceSelectionFactory priceSelectionFactory = new PriceSelectionFactory();
 
-    ArrayList<TradingDefinition> tradingDefinitions;
+    private ArrayList<TradingDto> tradingDefinitions;
 
-    String strategyName;
+    private String strategyName;
 
-    BarSeries series;
+    private BarSeries series;
 
-    public StrategyGenerator(ArrayList<TradingDefinition> tradingDefinitions, String strategyName, BarSeries series) {
+    public StrategyGenerator() {}
+
+    public StrategyGenerator(ArrayList<TradingDto> tradingDefinitions, String strategyName, BarSeries series) {
         this.tradingDefinitions = tradingDefinitions;
         this.strategyName = strategyName;
         this.series = series;
@@ -47,7 +48,7 @@ public class StrategyGenerator {
         Rule buyRule = null;
         Rule sellRule = null;
 
-        for (TradingDefinition td : tradingDefinitions) {
+        for (TradingDto td : tradingDefinitions) {
             Indicator<Num> priceSelector = priceSelectionFactory.createPriceSelector(td.getPriceMoment(), this.series);
             Indicator<Num> indicator = indicatorFactory.createIndicator(td.getIndicator(), priceSelector, td.getSettings());
             AbstractRule br = ruleFactory.createRule(td.getBuyRule(), indicator, priceSelector);

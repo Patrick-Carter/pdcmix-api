@@ -1,9 +1,11 @@
 package com.tradingbot.app.ws.trading.factories;
 
+import org.springframework.stereotype.Component;
 import org.ta4j.core.BarSeries;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
 import org.ta4j.core.indicators.helpers.PriceIndicator;
 
+@Component
 public class PriceSelectionFactory {
     public PriceIndicator createPriceSelector(String type, BarSeries series) throws IllegalArgumentException {
         switch(type) {
