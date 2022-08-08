@@ -7,11 +7,11 @@
 		<version>2.7.2</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.tradingbot.app.ws</groupId>
-	<artifactId>trading-bot-api</artifactId>
+	<groupId>com.pdcmix.app.ws</groupId>
+	<artifactId>pdcmix</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>trading-bot-api</name>
-	<description>Java trading bot</description>
+	<name>pdcmix</name>
+	<description>API for PDC Mix</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

@@ -1,4 +1,4 @@
-package com.tradingbot.app.ws.io.entity;
+package com.pdcmix.app.ws.io.entity;
 
 import java.io.Serializable;
 import java.sql.Date;

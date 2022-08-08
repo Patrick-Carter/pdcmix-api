@@ -1,4 +1,4 @@
-package com.tradingbot.app.ws.security;
+package com.pdcmix.app.ws.security;
 
 import java.io.Serializable;
 import java.util.Date;

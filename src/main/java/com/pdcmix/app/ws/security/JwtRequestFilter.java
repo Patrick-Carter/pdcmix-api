@@ -1,4 +1,4 @@
-package com.tradingbot.app.ws.security;
+package com.pdcmix.app.ws.security;
 
 import java.io.IOException;
 
@@ -15,7 +15,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.tradingbot.app.ws.service.UserService;
+import com.pdcmix.app.ws.service.UserService;
 
 import io.jsonwebtoken.ExpiredJwtException;
 

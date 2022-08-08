@@ -1,4 +1,4 @@
-package com.tradingbot.app.ws;
+package com.pdcmix.app.ws;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

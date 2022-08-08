@@ -1,4 +1,4 @@
-package com.tradingbot.app.ws.ui.model.request;
+package com.pdcmix.app.ws.ui.model.request;
 
 public class UserAuthReqModel {
     private String username;

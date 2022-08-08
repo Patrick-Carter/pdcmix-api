@@ -1,21 +1,20 @@
-package com.tradingbot.app.ws.service;
+package com.pdcmix.app.ws.service;
 
 import java.util.ArrayList;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.tradingbot.app.ws.io.entity.UserEntity;
-import com.tradingbot.app.ws.repo.IUserRepo;
-import com.tradingbot.app.ws.security.JwtTokenUtil;
-import com.tradingbot.app.ws.service.interfaces.IUserService;
-import com.tradingbot.app.ws.shared.dto.UserDto;
+import com.pdcmix.app.ws.io.entity.UserEntity;
+import com.pdcmix.app.ws.repo.IUserRepo;
+import com.pdcmix.app.ws.security.JwtTokenUtil;
+import com.pdcmix.app.ws.service.interfaces.IUserService;
+import com.pdcmix.app.ws.shared.dto.UserDto;
 
 @Service("userService")
 public class UserService implements IUserService{

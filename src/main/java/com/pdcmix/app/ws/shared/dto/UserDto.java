@@ -1,4 +1,4 @@
-package com.tradingbot.app.ws.shared.dto;
+package com.pdcmix.app.ws.shared.dto;
 
 import java.io.Serializable;
 import java.util.UUID;

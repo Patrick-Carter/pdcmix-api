@@ -1,6 +1,4 @@
-package com.tradingbot.app.ws.ui.model.response;
-
-import java.util.UUID;
+package com.pdcmix.app.ws.ui.model.response;
 
 public class UserSignupResModel {
     private String username;
