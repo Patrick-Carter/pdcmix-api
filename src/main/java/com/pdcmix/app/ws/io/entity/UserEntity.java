@@ -2,6 +2,8 @@ package com.pdcmix.app.ws.io.entity;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -17,7 +19,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity(name = "user")
 @Table(name = "users")
-@EntityListeners(AuditingEntityListener.class)
 public class UserEntity implements Serializable{
     private static final long serialVersionUID = 13457346345686L;
     
@@ -40,11 +41,32 @@ public class UserEntity implements Serializable{
     @Column(nullable = false)
     private Boolean emailVerificationStatus = false;
 
-    @CreatedDate
-    private Date createdAt;
+    @Column(nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT NOW()")
+    private ZonedDateTime createdAt;
 
-    @LastModifiedDate
-    private Date updatedAt;
+    @Column(nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT NOW()")
+    private ZonedDateTime updatedAt;
+
+    @Column()
+    private List<ProjectEntity> projects;
+
+    @Column()
+    private List<CommentEntity> comments;
+
+    @Column()
+    private List<FileEntity> projectFiles;
+
+    @Column()
+    private List<PermissionEntity> projectPermissions;
+
+    @Column()
+    private List<PermissionEntity> filePermissions;
+
+    @Column
+    private List<NotificationEntity> projectNotifications;
+
+    @Column
+    private List<NotificationEntity> fileNotifications;
 
     public UUID getId() {
         return id;
@@ -94,19 +116,19 @@ public class UserEntity implements Serializable{
         this.emailVerificationStatus = emailVerificationStatus;
     }
 
-    public Date getCreatedAt() {
+    public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public ZonedDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(ZonedDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 }
