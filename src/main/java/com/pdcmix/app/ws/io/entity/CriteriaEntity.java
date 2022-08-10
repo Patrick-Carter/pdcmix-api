@@ -23,4 +23,20 @@ public class CriteriaEntity {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private CriteriaEnum type;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public CriteriaEnum getType() {
+        return type;
+    }
+
+    public void setType(CriteriaEnum type) {
+        this.type = type;
+    }
 }

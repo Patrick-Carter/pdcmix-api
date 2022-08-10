@@ -1,6 +1,5 @@
 package com.pdcmix.app.ws.io.entity;
 
-import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -24,4 +23,20 @@ public class PermissionEntity {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private PermissionEnum type;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public PermissionEnum getType() {
+        return type;
+    }
+
+    public void setType(PermissionEnum type) {
+        this.type = type;
+    }
 }

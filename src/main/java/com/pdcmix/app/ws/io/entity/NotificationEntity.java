@@ -23,4 +23,20 @@ public class NotificationEntity {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private NotificationEnum type;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public NotificationEnum getType() {
+        return type;
+    }
+
+    public void setType(NotificationEnum type) {
+        this.type = type;
+    }
 }
