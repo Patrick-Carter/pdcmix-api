@@ -25,7 +25,7 @@ public class ProjectEntity {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    @Column(nullable = false)
+    @Column(nullable = false columnDefinition = "boolean default true NOT NULL")
     private Boolean status;
 
     @Column(nullable = false, columnDefinition = "integer default 0 not null")
@@ -42,6 +42,17 @@ public class ProjectEntity {
 
     @Column(nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT NOW()")
     private ZonedDateTime updatedAt;
+
+    @Column(nullable = false)
+    private Boolean open;
+
+    public Boolean getOpen() {
+        return open;
+    }
+
+    public void setOpen(Boolean open) {
+        this.open = open;
+    }
 
     @Column()
     private List<DiscussionEntity> discussions;

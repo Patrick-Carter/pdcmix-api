@@ -54,6 +54,17 @@ public class FileEntity {
     @Column(nullable = false)
     private UUID updatedBy;
 
+    @Column(nullable = false)
+    private Boolean open;
+
+    public Boolean getOpen() {
+        return open;
+    }
+
+    public void setOpen(Boolean open) {
+        this.open = open;
+    }
+
     @Column(nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT NOW()")
     private ZonedDateTime createdAt;
 

@@ -1,5 +1,5 @@
 package com.pdcmix.app.ws.io.enums;
 
 public enum PermissionEnum {
-    READ, WRITE, UPDATE, DELETE
+    VIEW, UPLOAD, EDIT, DELETE, ADD_DISCUSSIONS, ADD_USERS, EDIT_PERMISSIONS, ADMIN
 }

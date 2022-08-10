@@ -33,8 +33,22 @@ public class DiscussionEntity {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
+    private Boolean open;
+
+    @Column(nullable = false)
+    private Boolean status;
+
     @Column()
     private List<CommentEntity> comments;
+
+    public Boolean getOpen() {
+        return open;
+    }
+
+    public void setOpen(Boolean open) {
+        this.open = open;
+    }
 
     public UUID getId() {
         return id;

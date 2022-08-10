@@ -22,16 +22,16 @@ public class CommentEntity {
     @Column(nullable = false)
     private String comment;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "boolean default false NOT NULL")
     private Boolean edited;
 
     @Column(nullable = false)
     private Boolean status;
 
-    @Column(nullable = false, columnDefinition = "integer default 0 not null")
+    @Column(columnDefinition = "integer default 0 not null")
     private Integer likes;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "discussion_id")
     private DiscussionEntity discussion;
 
     @Column(nullable = false)
