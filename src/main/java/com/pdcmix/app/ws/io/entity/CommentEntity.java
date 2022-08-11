@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -32,19 +34,41 @@ public class CommentEntity {
     private Integer likes;
 
     @Column(nullable = false, name = "discussion_id")
+    @ManyToOne()
+    @JoinColumn(name = "discussion_id")
     private DiscussionEntity discussion;
 
+    @ManyToOne()
+    @JoinColumn(name = "created_by")
     @Column(nullable = false)
-    private UUID createdBy;
+    private UserEntity createdBy;
     
+    @ManyToOne()
+    @JoinColumn(name = "updated_by")
     @Column(nullable = false)
-    private UUID updatedBy;
-    
+    private UserEntity updatedBy;
+
     @Column(nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT NOW()")
     private ZonedDateTime createdAt;
     
     @Column(nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT NOW()")
     private ZonedDateTime updatedAt;
+
+    public UserEntity getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(UserEntity createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public UserEntity getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(UserEntity updatedBy) {
+        this.updatedBy = updatedBy;
+    }
 
     public UUID getId() {
         return id;
@@ -92,22 +116,6 @@ public class CommentEntity {
 
     public void setDiscussion(DiscussionEntity discussion) {
         this.discussion = discussion;
-    }
-
-    public UUID getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(UUID createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public UUID getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(UUID updatedBy) {
-        this.updatedBy = updatedBy;
     }
 
     public ZonedDateTime getCreatedAt() {

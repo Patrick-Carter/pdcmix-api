@@ -8,6 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity(name = "project")
@@ -22,37 +24,33 @@ public class ProjectEntity {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT NOT NULL")
     private String description;
 
-    @Column(nullable = false columnDefinition = "boolean default true NOT NULL")
+    @Column(columnDefinition = "boolean default true NOT NULL")
     private Boolean status;
 
-    @Column(nullable = false, columnDefinition = "integer default 0 not null")
+    @Column(columnDefinition = "integer default 0 not null")
     private Integer revisions;
 
     @Column(nullable = false)
-    private UUID createdBy;
+    @ManyToOne
+    @JoinColumn(name = "created_by")
+    private UserEntity createdBy;
 
     @Column(nullable = false)
-    private UUID updatedBy;
+    @ManyToOne
+    @JoinColumn(name = "updated_by")
+    private UserEntity updatedBy;
 
-    @Column(nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT NOW()")
+    @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT NOW()")
     private ZonedDateTime createdAt;
 
-    @Column(nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT NOW()")
+    @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT NOW()")
     private ZonedDateTime updatedAt;
 
     @Column(nullable = false)
     private Boolean open;
-
-    public Boolean getOpen() {
-        return open;
-    }
-
-    public void setOpen(Boolean open) {
-        this.open = open;
-    }
 
     @Column()
     private List<DiscussionEntity> discussions;
@@ -65,6 +63,30 @@ public class ProjectEntity {
 
     @Column()
     private List<CriteriaEntity> criteria;
+
+    public UserEntity getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(UserEntity createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public UserEntity getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(UserEntity updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public Boolean getOpen() {
+        return open;
+    }
+
+    public void setOpen(Boolean open) {
+        this.open = open;
+    }
 
     public UUID getId() {
         return id;
@@ -104,22 +126,6 @@ public class ProjectEntity {
 
     public void setRevisions(Integer revisions) {
         this.revisions = revisions;
-    }
-
-    public UUID getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(UUID createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public UUID getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(UUID updatedBy) {
-        this.updatedBy = updatedBy;
     }
 
     public ZonedDateTime getCreatedAt() {

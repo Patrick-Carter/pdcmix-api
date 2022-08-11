@@ -4,13 +4,9 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import com.pdcmix.app.ws.io.enums.CriteriaEnum;
 
 @Entity(name = "criteria")
 @Table(name = "criteria")
@@ -21,8 +17,15 @@ public class CriteriaEntity {
     private UUID id;
 
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private CriteriaEnum type;
+    private String criteria;
+
+    public String getCriteria() {
+        return criteria;
+    }
+
+    public void setCriteria(String criteria) {
+        this.criteria = criteria;
+    }
 
     public UUID getId() {
         return id;
@@ -32,11 +35,4 @@ public class CriteriaEntity {
         this.id = id;
     }
 
-    public CriteriaEnum getType() {
-        return type;
-    }
-
-    public void setType(CriteriaEnum type) {
-        this.type = type;
-    }
 }

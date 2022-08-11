@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity(name = "user")
@@ -36,19 +37,22 @@ public class UserEntity implements Serializable {
     @Column(nullable = false)
     private Boolean emailVerificationStatus = false;
 
-    @Column(nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT NOW()")
+    @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL")
     private ZonedDateTime createdAt;
 
-    @Column(nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT NOW()")
+    @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL")
     private ZonedDateTime updatedAt;
 
     @Column()
+    @OneToMany(mappedBy = "user")
     private List<ProjectEntity> projects;
 
     @Column()
+    @OneToMany(mappedBy = "user")
     private List<CommentEntity> comments;
 
     @Column()
+    @OneToMany(mappedBy = "user")
     private List<FileEntity> projectFiles;
 
     @Column()
@@ -57,11 +61,17 @@ public class UserEntity implements Serializable {
     @Column()
     private List<PermissionEntity> filePermissions;
 
+    @Column()
+    private List<PermissionEntity> discussionPermissions;
+
     @Column
     private List<NotificationEntity> projectNotifications;
 
     @Column
     private List<NotificationEntity> fileNotifications;
+
+    @Column
+    private List<NotificationEntity> discussionNotifications;
 
     public List<ProjectEntity> getProjects() {
         return projects;

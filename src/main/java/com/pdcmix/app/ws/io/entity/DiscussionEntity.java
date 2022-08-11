@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity(name = "discussion")
@@ -40,7 +41,11 @@ public class DiscussionEntity {
     private Boolean status;
 
     @Column()
+    @OneToMany(mappedBy = "discussion")
     private List<CommentEntity> comments;
+
+    @Column()
+    private List<PermissionEntity> permissions;
 
     public Boolean getOpen() {
         return open;

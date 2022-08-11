@@ -4,13 +4,9 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import com.pdcmix.app.ws.io.enums.NotificationEnum;
 
 @Entity(name = "notification")
 @Table(name = "notifications")
@@ -21,8 +17,15 @@ public class NotificationEntity {
     private UUID id;
 
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private NotificationEnum type;
+    private String notification;
+
+    public String getNotification() {
+        return notification;
+    }
+
+    public void setNotification(String notification) {
+        this.notification = notification;
+    }
 
     public UUID getId() {
         return id;
@@ -32,11 +35,4 @@ public class NotificationEntity {
         this.id = id;
     }
 
-    public NotificationEnum getType() {
-        return type;
-    }
-
-    public void setType(NotificationEnum type) {
-        this.type = type;
-    }
 }

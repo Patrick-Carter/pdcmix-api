@@ -1,5 +1,5 @@
 package com.pdcmix.app.ws.io.enums;
 
 public enum FileEnum {
-    PROJECT, AVATAR, COVER, MEDIA, ART, OTHER
+    PROJECT, ART, MEDIA, AVATAR, COVER, OTHER
 }

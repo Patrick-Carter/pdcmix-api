@@ -15,6 +15,8 @@ import javax.persistence.Column;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 
 @Entity(name = "projectFile")
@@ -49,21 +51,17 @@ public class FileEntity {
     private Boolean status;
 
     @Column(nullable = false)
-    private UUID createdBy;
+    @ManyToOne()
+    @JoinColumn(name = "created_by")
+    private UserEntity createdBy;
 
     @Column(nullable = false)
-    private UUID updatedBy;
+    @ManyToOne()
+    @JoinColumn(name = "updated_by")
+    private UserEntity updatedBy;
 
     @Column(nullable = false)
     private Boolean open;
-
-    public Boolean getOpen() {
-        return open;
-    }
-
-    public void setOpen(Boolean open) {
-        this.open = open;
-    }
 
     @Column(nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT NOW()")
     private ZonedDateTime createdAt;
@@ -86,6 +84,30 @@ public class FileEntity {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public Boolean getOpen() {
+        return open;
+    }
+
+    public void setOpen(Boolean open) {
+        this.open = open;
+    }
+
+    public UserEntity getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(UserEntity createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public UserEntity getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(UserEntity updatedBy) {
+        this.updatedBy = updatedBy;
     }
 
     public String getName() {
@@ -142,22 +164,6 @@ public class FileEntity {
 
     public void setStatus(Boolean status) {
         this.status = status;
-    }
-
-    public UUID getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(UUID createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public UUID getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(UUID updatedBy) {
-        this.updatedBy = updatedBy;
     }
 
     public ZonedDateTime getCreatedAt() {
