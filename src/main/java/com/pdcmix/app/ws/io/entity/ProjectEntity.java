@@ -39,11 +39,11 @@ public class ProjectEntity {
     private Integer revisions;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "created_by")
+    @JoinColumn(name = "created_by", nullable = true)
     private UserEntity createdBy;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "updated_by")
+    @JoinColumn(name = "updated_by", nullable = true)
     private UserEntity updatedBy;
 
     @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT NOW()")

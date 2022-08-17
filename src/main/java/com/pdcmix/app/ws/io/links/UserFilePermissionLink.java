@@ -37,7 +37,7 @@ public class UserFilePermissionLink {
     private PermissionEntity permission;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "created_by")
+    @JoinColumn(name = "created_by", nullable = true)
     private UserEntity createdBy;
 
     @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT NOW()")

@@ -55,11 +55,11 @@ public class FileEntity {
     private Boolean status;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "created_by")
+    @JoinColumn(name = "created_by", nullable = true)
     private UserEntity createdBy;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "updated_by")
+    @JoinColumn(name = "updated_by", nullable = true)
     private UserEntity updatedBy;
 
     @Column(nullable = false)

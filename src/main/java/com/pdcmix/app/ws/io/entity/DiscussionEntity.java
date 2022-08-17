@@ -52,11 +52,11 @@ public class DiscussionEntity {
     private Set<UserDiscussionPermissionLink> userDiscussionPermissionLinks;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "project_id")
+    @JoinColumn(name = "project_id", nullable = true)
     private ProjectEntity project;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "file_id")
+    @JoinColumn(name = "file_id", nullable = true)
     private FileEntity file;
 
     public ProjectEntity getProject() {

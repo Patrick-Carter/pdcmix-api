@@ -1,6 +1,8 @@
 package com.pdcmix.app.ws.service;
 
 import java.util.ArrayList;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +26,6 @@ public class UserService implements IUserService{
 
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    // @Autowired
-	// private AuthenticationManager authenticationManager;
 
     @Autowired
 	private JwtTokenUtil jwtTokenUtil;
@@ -56,14 +55,14 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        UserEntity userEntity = userRepo.findByEmail(email);
+    public UserDetails loadUserByUsername(String uuid) throws UsernameNotFoundException {
+        Optional<UserEntity> userEntity = userRepo.findById(UUID.fromString(uuid));
 
-        if (userEntity == null) {
+        if (!userEntity.isPresent()) {
             throw new UsernameNotFoundException("User not found");
         }
 
-        return new User(userEntity.getEmail(), userEntity.getEncryptedPassword(), new ArrayList<>());
+        return new User(userEntity.get().getId().toString(), userEntity.get().getEncryptedPassword(), new ArrayList<>());
     }
 
     @Override
@@ -90,7 +89,7 @@ public class UserService implements IUserService{
             throw new RuntimeException("Invalid credentials");
         }
 
-        final String token = setToken(user.getEmail());
+        final String token = setToken(user.getId().toString());
 
         UserDto returnValue = new UserDto();
         returnValue.setToken(token);
@@ -100,8 +99,8 @@ public class UserService implements IUserService{
         return returnValue;
     }
 
-    private String setToken(String email) {
-        final UserDetails userDetails = this.loadUserByUsername(email);
+    private String setToken(String uuid) {
+        final UserDetails userDetails = this.loadUserByUsername(uuid);
 
         final String token = jwtTokenUtil.generateToken(userDetails);
 
