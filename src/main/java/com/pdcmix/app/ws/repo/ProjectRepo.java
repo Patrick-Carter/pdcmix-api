@@ -5,9 +5,9 @@ import java.util.UUID;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.pdcmix.app.ws.io.entity.UserEntity;
+import com.pdcmix.app.ws.io.entity.ProjectEntity;
 
 @Repository
-public interface IUserRepo extends CrudRepository<UserEntity, UUID>{
-    UserEntity findByEmail(String email);
+public interface ProjectRepo extends CrudRepository<ProjectEntity, UUID>{
+    
 }

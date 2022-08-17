@@ -38,11 +38,11 @@ public class ProjectEntity {
     @Column(columnDefinition = "integer default 0 not null")
     private Integer revisions;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "created_by", nullable = true)
     private UserEntity createdBy;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "updated_by", nullable = true)
     private UserEntity updatedBy;
 

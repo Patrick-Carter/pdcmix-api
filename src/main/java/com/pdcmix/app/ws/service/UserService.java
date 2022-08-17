@@ -13,16 +13,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.pdcmix.app.ws.io.entity.UserEntity;
-import com.pdcmix.app.ws.repo.IUserRepo;
+import com.pdcmix.app.ws.repo.UserRepo;
 import com.pdcmix.app.ws.security.JwtTokenUtil;
 import com.pdcmix.app.ws.service.interfaces.IUserService;
 import com.pdcmix.app.ws.shared.dto.UserDto;
 
-@Service("userService")
+@Service
 public class UserService implements IUserService{
 
     @Autowired
-    IUserRepo userRepo;
+    UserRepo userRepo;
 
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -89,7 +89,7 @@ public class UserService implements IUserService{
             throw new RuntimeException("Invalid credentials");
         }
 
-        final String token = setToken(user.getId().toString());
+        final String token = setToken(userEntity.getId().toString());
 
         UserDto returnValue = new UserDto();
         returnValue.setToken(token);

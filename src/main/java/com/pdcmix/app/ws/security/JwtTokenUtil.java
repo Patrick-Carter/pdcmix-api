@@ -24,6 +24,11 @@ public class JwtTokenUtil implements Serializable {
 
 	//retrieve email from jwt token
 	public String getIdFromToken(String token) {
+
+		if (token.contains("Bearer ")) {
+			token = token.substring(7);
+		}
+
 		return getClaimFromToken(token, Claims::getSubject);
 	}
 
