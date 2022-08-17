@@ -6,21 +6,25 @@ import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 import com.pdcmix.app.ws.io.enums.FileEnum;
+import com.pdcmix.app.ws.io.links.UserFilePermissionLink;
 
 import java.time.ZonedDateTime;
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
-
-@Entity(name = "projectFile")
-@Table(name = "project_files")
+@Entity(name = "file")
+@Table(name = "files")
 public class FileEntity {
 
     @Id
@@ -50,13 +54,11 @@ public class FileEntity {
     @Column(nullable = false)
     private Boolean status;
 
-    @Column(nullable = false)
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "created_by")
     private UserEntity createdBy;
 
-    @Column(nullable = false)
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "updated_by")
     private UserEntity updatedBy;
 
@@ -69,14 +71,15 @@ public class FileEntity {
     @Column(nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT NOW()")
     private ZonedDateTime updatedAt;
 
-    @Column()
-    private List<DiscussionEntity> discussions;
+    @OneToMany(mappedBy = "file", cascade = CascadeType.ALL)
+    private Set<UserFilePermissionLink> userFilePermissionLinks;
 
-    @Column()
-    private List<PermissionEntity> permissions;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "project_files", joinColumns = @JoinColumn(name = "file_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "project_id", referencedColumnName = "id"))
+    private Set<ProjectEntity> projects;
 
-    @Column()
-    private List<CriteriaEntity> criteria;
+    @OneToMany(mappedBy = "file", cascade = CascadeType.ALL)
+    private Set<DiscussionEntity> discussions;
 
     public UUID getId() {
         return id;
@@ -84,6 +87,22 @@ public class FileEntity {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public Set<ProjectEntity> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(Set<ProjectEntity> projects) {
+        this.projects = projects;
+    }
+
+    public Set<UserFilePermissionLink> getUserFilePermissionLinks() {
+        return userFilePermissionLinks;
+    }
+
+    public void setUserFilePermissionLinks(Set<UserFilePermissionLink> userFilePermissionLinks) {
+        this.userFilePermissionLinks = userFilePermissionLinks;
     }
 
     public Boolean getOpen() {
@@ -182,28 +201,11 @@ public class FileEntity {
         this.updatedAt = updatedAt;
     }
 
-    public List<DiscussionEntity> getDiscussions() {
+    public Set<DiscussionEntity> getDiscussions() {
         return discussions;
     }
 
-    public void setDiscussions(List<DiscussionEntity> discussions) {
+    public void setDiscussions(Set<DiscussionEntity> discussions) {
         this.discussions = discussions;
     }
-
-    public List<PermissionEntity> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(List<PermissionEntity> permissions) {
-        this.permissions = permissions;
-    }
-
-    public List<CriteriaEntity> getCriteria() {
-        return criteria;
-    }
-
-    public void setCriteria(List<CriteriaEntity> criteria) {
-        this.criteria = criteria;
-    }
-
 }

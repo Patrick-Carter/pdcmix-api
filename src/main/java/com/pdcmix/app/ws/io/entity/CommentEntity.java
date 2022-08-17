@@ -3,6 +3,7 @@ package com.pdcmix.app.ws.io.entity;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,19 +34,16 @@ public class CommentEntity {
     @Column(columnDefinition = "integer default 0 not null")
     private Integer likes;
 
-    @Column(nullable = false, name = "discussion_id")
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "discussion_id")
     private DiscussionEntity discussion;
 
-    @ManyToOne()
-    @JoinColumn(name = "created_by")
-    @Column(nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "created_by", nullable = true)
     private UserEntity createdBy;
     
-    @ManyToOne()
-    @JoinColumn(name = "updated_by")
-    @Column(nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "updated_by", nullable = true)
     private UserEntity updatedBy;
 
     @Column(nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT NOW()")

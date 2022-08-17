@@ -2,9 +2,10 @@ package com.pdcmix.app.ws.io.entity;
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
@@ -12,6 +13,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.pdcmix.app.ws.io.links.UserDiscussionNotificationLink;
+import com.pdcmix.app.ws.io.links.UserDiscussionPermissionLink;
+import com.pdcmix.app.ws.io.links.UserFileNotificationLink;
+import com.pdcmix.app.ws.io.links.UserFilePermissionLink;
+import com.pdcmix.app.ws.io.links.UserProjectNotificationLink;
+import com.pdcmix.app.ws.io.links.UserProjectPermissionLink;
 
 @Entity(name = "user")
 @Table(name = "users")
@@ -32,6 +40,7 @@ public class UserEntity implements Serializable {
     @Column(nullable = false)
     private String encryptedPassword;
 
+    @Column(nullable = true)
     private String emailVerificationToken;
 
     @Column(nullable = false)
@@ -43,90 +52,103 @@ public class UserEntity implements Serializable {
     @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL")
     private ZonedDateTime updatedAt;
 
-    @Column()
-    @OneToMany(mappedBy = "user")
-    private List<ProjectEntity> projects;
+    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL)
+    private Set<ProjectEntity> projects;
 
-    @Column()
-    @OneToMany(mappedBy = "user")
-    private List<CommentEntity> comments;
+    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL)
+    private Set<CommentEntity> comments;
 
-    @Column()
-    @OneToMany(mappedBy = "user")
-    private List<FileEntity> projectFiles;
+    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL)
+    private Set<FileEntity> files;
 
-    @Column()
-    private List<PermissionEntity> projectPermissions;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<UserProjectPermissionLink> userProjectPermissionLinks;
 
-    @Column()
-    private List<PermissionEntity> filePermissions;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<UserFilePermissionLink> userFilePermissionLinks;
 
-    @Column()
-    private List<PermissionEntity> discussionPermissions;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<UserDiscussionPermissionLink> userDiscussionPermissionLinks;
 
-    @Column
-    private List<NotificationEntity> projectNotifications;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<UserProjectNotificationLink> userProjectNotificationLinks;
 
-    @Column
-    private List<NotificationEntity> fileNotifications;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<UserFileNotificationLink> userFileNotificationLinks;
 
-    @Column
-    private List<NotificationEntity> discussionNotifications;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<UserDiscussionNotificationLink> userDiscussionNotificationLinks;
+    
+    public Set<UserProjectNotificationLink> getUserProjectNotificationLinks() {
+        return userProjectNotificationLinks;
+    }
 
-    public List<ProjectEntity> getProjects() {
+    public void setUserProjectNotificationLinks(Set<UserProjectNotificationLink> userProjectNotificationLinks) {
+        this.userProjectNotificationLinks = userProjectNotificationLinks;
+    }
+
+    public Set<UserFileNotificationLink> getUserFileNotificationLinks() {
+        return userFileNotificationLinks;
+    }
+
+    public void setUserFileNotificationLinks(Set<UserFileNotificationLink> userFileNotificationLinks) {
+        this.userFileNotificationLinks = userFileNotificationLinks;
+    }
+
+    public Set<UserDiscussionNotificationLink> getUserDiscussionNotificationLinks() {
+        return userDiscussionNotificationLinks;
+    }
+
+    public void setUserDiscussionNotificationLinks(Set<UserDiscussionNotificationLink> userDiscussionNotificationLinks) {
+        this.userDiscussionNotificationLinks = userDiscussionNotificationLinks;
+    }
+
+    public Set<UserDiscussionPermissionLink> getUserDiscussionPermissionLinks() {
+        return userDiscussionPermissionLinks;
+    }
+
+    public void setUserDiscussionPermissionLinks(Set<UserDiscussionPermissionLink> userDiscussionPermissionLinks) {
+        this.userDiscussionPermissionLinks = userDiscussionPermissionLinks;
+    }
+
+    public Set<UserProjectPermissionLink> getUserProjectPermissionLinks() {
+        return userProjectPermissionLinks;
+    }
+
+    public void setUserProjectPermissionLinks(Set<UserProjectPermissionLink> userProjectPermissionLinks) {
+        this.userProjectPermissionLinks = userProjectPermissionLinks;
+    }
+
+    public Set<UserFilePermissionLink> getUserFilePermissionLinks() {
+        return userFilePermissionLinks;
+    }
+
+    public void setUserFilePermissionLinks(Set<UserFilePermissionLink> userFilePermissionLinks) {
+        this.userFilePermissionLinks = userFilePermissionLinks;
+    }
+
+    public Set<ProjectEntity> getProjects() {
         return projects;
     }
 
-    public void setProjects(List<ProjectEntity> projects) {
+    public void setProjects(Set<ProjectEntity> projects) {
         this.projects = projects;
     }
 
-    public List<CommentEntity> getComments() {
+    public Set<CommentEntity> getComments() {
         return comments;
     }
 
-    public void setComments(List<CommentEntity> comments) {
+    public void setComments(Set<CommentEntity> comments) {
         this.comments = comments;
     }
 
-    public List<FileEntity> getProjectFiles() {
-        return projectFiles;
+    public Set<FileEntity> getFiles() {
+        return files;
     }
 
-    public void setProjectFiles(List<FileEntity> projectFiles) {
-        this.projectFiles = projectFiles;
-    }
-
-    public List<PermissionEntity> getProjectPermissions() {
-        return projectPermissions;
-    }
-
-    public void setProjectPermissions(List<PermissionEntity> projectPermissions) {
-        this.projectPermissions = projectPermissions;
-    }
-
-    public List<PermissionEntity> getFilePermissions() {
-        return filePermissions;
-    }
-
-    public void setFilePermissions(List<PermissionEntity> filePermissions) {
-        this.filePermissions = filePermissions;
-    }
-
-    public List<NotificationEntity> getProjectNotifications() {
-        return projectNotifications;
-    }
-
-    public void setProjectNotifications(List<NotificationEntity> projectNotifications) {
-        this.projectNotifications = projectNotifications;
-    }
-
-    public List<NotificationEntity> getFileNotifications() {
-        return fileNotifications;
-    }
-
-    public void setFileNotifications(List<NotificationEntity> fileNotifications) {
-        this.fileNotifications = fileNotifications;
+    public void setFiles(Set<FileEntity> files) {
+        this.files = files;
     }
 
     public UUID getId() {

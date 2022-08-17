@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS public.files
 	"status" boolean default true NOT NULL,
     "open" boolean default true NOT NULL,
     revisions integer default 0 NOT NULL,
+	project_id uuid,
     created_by uuid NOT NULL,
     updated_by uuid NOT NULL,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
@@ -18,3 +19,5 @@ CREATE TABLE IF NOT EXISTS public.files
 
 ALTER TABLE files ADD CONSTRAINT fk_files_created_by FOREIGN KEY (created_by) REFERENCES public.users(id);
 ALTER TABLE files ADD CONSTRAINT fk_files_updated_by FOREIGN KEY (updated_by) REFERENCES public.users(id);
+
+ALTER TABLE files ADD CONSTRAINT fk_files_projext_id FOREIGN KEY (project_id) REFERENCES public.projects(id);

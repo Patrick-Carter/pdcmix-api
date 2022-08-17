@@ -1,38 +1,38 @@
-package com.pdcmix.app.ws.io.entity;
+// package com.pdcmix.app.ws.io.entity;
 
-import java.util.UUID;
+// import java.util.UUID;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+// import javax.persistence.Column;
+// import javax.persistence.Entity;
+// import javax.persistence.GeneratedValue;
+// import javax.persistence.Id;
+// import javax.persistence.Table;
 
-@Entity(name = "criteria")
-@Table(name = "criteria")
-public class CriteriaEntity {
-    @Id
-    @GeneratedValue
-    @Column(nullable = false, updatable = false)
-    private UUID id;
+// @Entity(name = "criteria")
+// @Table(name = "criteria")
+// public class CriteriaEntity {
+//     @Id
+//     @GeneratedValue
+//     @Column(nullable = false, updatable = false)
+//     private UUID id;
 
-    @Column(nullable = false)
-    private String criteria;
+//     @Column(nullable = false)
+//     private String criteria;
 
-    public String getCriteria() {
-        return criteria;
-    }
+//     public String getCriteria() {
+//         return criteria;
+//     }
 
-    public void setCriteria(String criteria) {
-        this.criteria = criteria;
-    }
+//     public void setCriteria(String criteria) {
+//         this.criteria = criteria;
+//     }
 
-    public UUID getId() {
-        return id;
-    }
+//     public UUID getId() {
+//         return id;
+//     }
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
+//     public void setId(UUID id) {
+//         this.id = id;
+//     }
 
-}
+// }

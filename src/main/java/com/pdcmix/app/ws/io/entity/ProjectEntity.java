@@ -1,16 +1,21 @@
 package com.pdcmix.app.ws.io.entity;
 
 import java.time.ZonedDateTime;
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.pdcmix.app.ws.io.links.UserProjectPermissionLink;
 
 @Entity(name = "project")
 @Table(name = "projects")
@@ -33,13 +38,11 @@ public class ProjectEntity {
     @Column(columnDefinition = "integer default 0 not null")
     private Integer revisions;
 
-    @Column(nullable = false)
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "created_by")
     private UserEntity createdBy;
 
-    @Column(nullable = false)
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "updated_by")
     private UserEntity updatedBy;
 
@@ -52,20 +55,33 @@ public class ProjectEntity {
     @Column(nullable = false)
     private Boolean open;
 
-    @Column()
-    private List<DiscussionEntity> discussions;
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    private Set<DiscussionEntity> discussions;
 
-    @Column()
-    private List<FileEntity> projectFiles;
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    private Set<UserProjectPermissionLink> userProjectPermissionLinks;
 
-    @Column()
-    private List<PermissionEntity> permissions;
+    @ManyToMany(mappedBy = "projects")
+    private Set<FileEntity> files;
 
-    @Column()
-    private List<CriteriaEntity> criteria;
+    public Set<UserProjectPermissionLink> getUserProjectPermissionLinks() {
+        return userProjectPermissionLinks;
+    }
+
+    public void setUserProjectPermissionLinks(Set<UserProjectPermissionLink> userProjectPermissionLinks) {
+        this.userProjectPermissionLinks = userProjectPermissionLinks;
+    }
 
     public UserEntity getCreatedBy() {
         return createdBy;
+    }
+
+    public Set<FileEntity> getFiles() {
+        return files;
+    }
+
+    public void setFiles(Set<FileEntity> files) {
+        this.files = files;
     }
 
     public void setCreatedBy(UserEntity createdBy) {
@@ -144,35 +160,11 @@ public class ProjectEntity {
         this.updatedAt = updatedAt;
     }
 
-    public List<DiscussionEntity> getDiscussions() {
+    public Set<DiscussionEntity> getDiscussions() {
         return discussions;
     }
 
-    public void setDiscussions(List<DiscussionEntity> discussions) {
+    public void setDiscussions(Set<DiscussionEntity> discussions) {
         this.discussions = discussions;
-    }
-
-    public List<FileEntity> getProjectFiles() {
-        return projectFiles;
-    }
-
-    public void setProjectFiles(List<FileEntity> projectFiles) {
-        this.projectFiles = projectFiles;
-    }
-
-    public List<PermissionEntity> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(List<PermissionEntity> permissions) {
-        this.permissions = permissions;
-    }
-
-    public List<CriteriaEntity> getCriteria() {
-        return criteria;
-    }
-
-    public void setCriteria(List<CriteriaEntity> criteria) {
-        this.criteria = criteria;
     }
 }

@@ -1,15 +1,20 @@
 package com.pdcmix.app.ws.io.entity;
 
 import java.time.ZonedDateTime;
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.pdcmix.app.ws.io.links.UserDiscussionPermissionLink;
 
 @Entity(name = "discussion")
 @Table(name = "discussions")
@@ -40,12 +45,51 @@ public class DiscussionEntity {
     @Column(nullable = false)
     private Boolean status;
 
-    @Column()
-    @OneToMany(mappedBy = "discussion")
-    private List<CommentEntity> comments;
+    @OneToMany(mappedBy = "discussion", cascade = CascadeType.ALL)
+    private Set<CommentEntity> comments;
 
-    @Column()
-    private List<PermissionEntity> permissions;
+    @OneToMany(mappedBy = "discussion", cascade = CascadeType.ALL)
+    private Set<UserDiscussionPermissionLink> userDiscussionPermissionLinks;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "project_id")
+    private ProjectEntity project;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "file_id")
+    private FileEntity file;
+
+    public ProjectEntity getProject() {
+        return project;
+    }
+
+    public void setProject(ProjectEntity project) {
+        this.project = project;
+    }
+
+    public FileEntity getFile() {
+        return file;
+    }
+
+    public void setFile(FileEntity file) {
+        this.file = file;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    public Set<UserDiscussionPermissionLink> getUserDiscussionPermissionLinks() {
+        return userDiscussionPermissionLinks;
+    }
+
+    public void setUserDiscussionPermissionLinks(Set<UserDiscussionPermissionLink> userDiscussionPermissionLinks) {
+        this.userDiscussionPermissionLinks = userDiscussionPermissionLinks;
+    }
 
     public Boolean getOpen() {
         return open;
@@ -103,11 +147,11 @@ public class DiscussionEntity {
         this.name = name;
     }
 
-    public List<CommentEntity> getComments() {
+    public Set<CommentEntity> getComments() {
         return comments;
     }
 
-    public void setComments(List<CommentEntity> comments) {
+    public void setComments(Set<CommentEntity> comments) {
         this.comments = comments;
     }
 }
