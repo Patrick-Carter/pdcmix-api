@@ -1,6 +1,5 @@
 package com.pdcmix.app.ws.io.entity;
 
-import java.time.ZonedDateTime;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
@@ -15,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity(name = "comment")
 @Table(name = "comments")
-public class CommentEntity {
+public class CommentEntity extends BaseEntity{
     
     @Id
     @GeneratedValue
@@ -37,36 +36,6 @@ public class CommentEntity {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "discussion_id")
     private DiscussionEntity discussion;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "created_by", nullable = true)
-    private UserEntity createdBy;
-    
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "updated_by", nullable = true)
-    private UserEntity updatedBy;
-
-    @Column(nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT NOW()")
-    private ZonedDateTime createdAt;
-    
-    @Column(nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT NOW()")
-    private ZonedDateTime updatedAt;
-
-    public UserEntity getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(UserEntity createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public UserEntity getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(UserEntity updatedBy) {
-        this.updatedBy = updatedBy;
-    }
 
     public UUID getId() {
         return id;
@@ -114,21 +83,5 @@ public class CommentEntity {
 
     public void setDiscussion(DiscussionEntity discussion) {
         this.discussion = discussion;
-    }
-
-    public ZonedDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(ZonedDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public ZonedDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(ZonedDateTime updatedAt) {
-        this.updatedAt = updatedAt;
     }
 }

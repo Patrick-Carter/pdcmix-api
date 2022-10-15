@@ -8,7 +8,6 @@ import javax.persistence.Table;
 import com.pdcmix.app.ws.io.enums.FileEnum;
 import com.pdcmix.app.ws.io.links.UserFilePermissionLink;
 
-import java.time.ZonedDateTime;
 import java.util.Set;
 import java.util.UUID;
 
@@ -20,7 +19,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity(name = "file")
@@ -54,22 +52,8 @@ public class FileEntity {
     @Column(nullable = false)
     private Boolean status;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "created_by", nullable = true)
-    private UserEntity createdBy;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "updated_by", nullable = true)
-    private UserEntity updatedBy;
-
     @Column(nullable = false)
     private Boolean open;
-
-    @Column(nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT NOW()")
-    private ZonedDateTime createdAt;
-
-    @Column(nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT NOW()")
-    private ZonedDateTime updatedAt;
 
     @OneToMany(mappedBy = "file", cascade = CascadeType.ALL)
     private Set<UserFilePermissionLink> userFilePermissionLinks;
@@ -111,22 +95,6 @@ public class FileEntity {
 
     public void setOpen(Boolean open) {
         this.open = open;
-    }
-
-    public UserEntity getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(UserEntity createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public UserEntity getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(UserEntity updatedBy) {
-        this.updatedBy = updatedBy;
     }
 
     public String getName() {
@@ -183,22 +151,6 @@ public class FileEntity {
 
     public void setStatus(Boolean status) {
         this.status = status;
-    }
-
-    public ZonedDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(ZonedDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public ZonedDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(ZonedDateTime updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
     public Set<DiscussionEntity> getDiscussions() {

@@ -1,6 +1,5 @@
 package com.pdcmix.app.ws.io.entity;
 
-import java.time.ZonedDateTime;
 import java.util.Set;
 import java.util.UUID;
 
@@ -9,9 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -19,7 +16,7 @@ import com.pdcmix.app.ws.io.links.UserProjectPermissionLink;
 
 @Entity(name = "project")
 @Table(name = "projects")
-public class ProjectEntity {
+public class ProjectEntity extends BaseEntity {
     
     @Id
     @GeneratedValue
@@ -37,20 +34,6 @@ public class ProjectEntity {
 
     @Column(columnDefinition = "integer default 0 not null")
     private Integer revisions;
-
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "created_by", nullable = true)
-    private UserEntity createdBy;
-
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "updated_by", nullable = true)
-    private UserEntity updatedBy;
-
-    @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT NOW()")
-    private ZonedDateTime createdAt;
-
-    @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT NOW()")
-    private ZonedDateTime updatedAt;
 
     @Column(nullable = false)
     private Boolean open;
@@ -72,28 +55,12 @@ public class ProjectEntity {
         this.userProjectPermissionLinks = userProjectPermissionLinks;
     }
 
-    public UserEntity getCreatedBy() {
-        return createdBy;
-    }
-
     public Set<FileEntity> getFiles() {
         return files;
     }
 
     public void setFiles(Set<FileEntity> files) {
         this.files = files;
-    }
-
-    public void setCreatedBy(UserEntity createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public UserEntity getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(UserEntity updatedBy) {
-        this.updatedBy = updatedBy;
     }
 
     public Boolean getOpen() {
@@ -144,27 +111,17 @@ public class ProjectEntity {
         this.revisions = revisions;
     }
 
-    public ZonedDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(ZonedDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public ZonedDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(ZonedDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
     public Set<DiscussionEntity> getDiscussions() {
         return discussions;
     }
 
     public void setDiscussions(Set<DiscussionEntity> discussions) {
         this.discussions = discussions;
+    }
+
+    public void initEntity(UUID userId) {
+        this.setBaseFields(userId);
+        this.setStatus(true);
+        this.setRevisions(0);
     }
 }

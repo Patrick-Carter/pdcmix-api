@@ -1,6 +1,5 @@
 package com.pdcmix.app.ws.io.entity;
 
-import java.time.ZonedDateTime;
 import java.util.Set;
 import java.util.UUID;
 
@@ -18,23 +17,11 @@ import com.pdcmix.app.ws.io.links.UserDiscussionPermissionLink;
 
 @Entity(name = "discussion")
 @Table(name = "discussions")
-public class DiscussionEntity {
+public class DiscussionEntity extends BaseEntity{
     @Id
     @GeneratedValue
     @Column(nullable = false, updatable = false)
     private UUID id;
-
-    @Column(nullable = false)
-    private UUID createdBy;
-
-    @Column(nullable = false)
-    private UUID updatedBy;
-
-    @Column(nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()")
-    private ZonedDateTime createdAt;
-
-    @Column(nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()")
-    private ZonedDateTime updatedAt;
 
     @Column(nullable = false)
     private String name;
@@ -105,38 +92,6 @@ public class DiscussionEntity {
 
     public void setId(UUID id) {
         this.id = id;
-    }
-
-    public UUID getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(UUID createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public UUID getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(UUID updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
-    public ZonedDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(ZonedDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public ZonedDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(ZonedDateTime updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
     public String getName() {

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -22,7 +23,6 @@ public class JwtTokenUtil implements Serializable {
     @Value("${jwt.secret}")
     private String secret;
 
-	//retrieve email from jwt token
 	public String getIdFromToken(String token) {
 
 		if (token.contains("Bearer ")) {
@@ -74,6 +74,12 @@ public class JwtTokenUtil implements Serializable {
 	public Boolean validateToken(String token, UserDetails userDetails) {
 		final String username = getIdFromToken(token);
 		return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+	}
+
+	public UUID getIdAsUuidFromToken(String token) {
+		String pulledUuid = this.getIdFromToken(token);
+		UUID idAsUuid = UUID.fromString(pulledUuid);
+		return idAsUuid;
 	}
 }
 

@@ -25,20 +25,12 @@ public class ProjectService {
     private JwtTokenUtil jwtTokenUtil;
 
     public ProjectDto createProject(ProjectDto projectDto, String token) {
-
-        String pulledUuid = jwtTokenUtil.getIdFromToken(token);
-        UUID createdByUuid = UUID.fromString(pulledUuid);
+        UUID createdByUuid = jwtTokenUtil.getIdAsUuidFromToken(token);
 
         ProjectEntity projectEntity = new ProjectEntity();
         BeanUtils.copyProperties(projectDto, projectEntity);
 
-        UserEntity test = new UserEntity();
-        test.setId(createdByUuid);
-        projectEntity.setCreatedBy(test);
-        projectEntity.setUpdatedBy(test);
-        projectEntity.setStatus(true);
-        projectEntity.setRevisions(0);
-        projectEntity.setCreatedAt(ZonedDateTime.now());
+        projectEntity.initEntity(createdByUuid);
 
         ProjectEntity savedProject = projectRepo.save(projectEntity);
         ProjectDto returnValue = new ProjectDto();
