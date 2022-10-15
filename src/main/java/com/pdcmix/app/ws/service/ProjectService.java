@@ -5,6 +5,8 @@ import java.time.ZonedDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,9 +35,39 @@ public class ProjectService {
         projectEntity.initEntity(createdByUuid);
 
         ProjectEntity savedProject = projectRepo.save(projectEntity);
+        ProjectDto returnValue = this.createDtoObject(savedProject);
+
+        return returnValue;
+    }
+
+    public ProjectDto getProject(UUID id) {
+        Optional<ProjectEntity> foundProject = projectRepo.findById(id);
+
+        if (!foundProject.isPresent()) {
+            throw new EntityNotFoundException();
+        }
+
+        ProjectEntity projectEntity = foundProject.get();
+
+        ProjectDto returnValue = this.createDtoObject(projectEntity);
+
+        return returnValue;
+    }
+
+    public void deleteProject(UUID id) {
+        Optional<ProjectEntity> foundProject = projectRepo.findById(id);
+
+        if (!foundProject.isPresent()) {
+            throw new EntityNotFoundException();
+        }
+
+        projectRepo.deleteById(id);
+    }
+
+    private ProjectDto createDtoObject(ProjectEntity projectEntity) {
         ProjectDto returnValue = new ProjectDto();
 
-        BeanUtils.copyProperties(savedProject, returnValue);
+        BeanUtils.copyProperties(projectEntity, returnValue);
 
         return returnValue;
     }

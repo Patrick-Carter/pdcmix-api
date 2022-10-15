@@ -23,7 +23,7 @@ import javax.persistence.OneToMany;
 
 @Entity(name = "file")
 @Table(name = "files")
-public class FileEntity {
+public class FileEntity extends BaseEntity{
 
     @Id
     @GeneratedValue
