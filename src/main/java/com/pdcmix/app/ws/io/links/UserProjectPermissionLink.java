@@ -12,36 +12,30 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.pdcmix.app.ws.io.entity.BaseEntity;
 import com.pdcmix.app.ws.io.entity.PermissionEntity;
 import com.pdcmix.app.ws.io.entity.ProjectEntity;
 import com.pdcmix.app.ws.io.entity.UserEntity;
 
 @Entity(name = "userProjectPermission")
 @Table(name = "user_project_permissions")
-public class UserProjectPermissionLink {
+public class UserProjectPermissionLink extends BaseEntity{
     @Id
     @GeneratedValue
     @Column(nullable = false, updatable = false)
     private UUID id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "project_id")
     private ProjectEntity project;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "permission_id")
     private PermissionEntity permission;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "created_by", nullable = true)
-    private UserEntity createdBy;
-
-    @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE DEFAULT NOW()")
-    private ZonedDateTime createdAt;
 
     public UUID getId() {
         return id;
@@ -73,22 +67,6 @@ public class UserProjectPermissionLink {
 
     public void setPermission(PermissionEntity permission) {
         this.permission = permission;
-    }
-
-    public UserEntity getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(UserEntity createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public ZonedDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(ZonedDateTime createdAt) {
-        this.createdAt = createdAt;
     }
 }
 

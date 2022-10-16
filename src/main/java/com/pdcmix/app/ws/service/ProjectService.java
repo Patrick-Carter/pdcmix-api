@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.pdcmix.app.ws.io.entity.ProjectEntity;
 import com.pdcmix.app.ws.repo.ProjectRepo;
 import com.pdcmix.app.ws.security.JwtTokenUtil;
+import com.pdcmix.app.ws.security.PermissionsContainer;
 import com.pdcmix.app.ws.shared.dto.ProjectDto;
 
 @Service
@@ -21,6 +22,9 @@ public class ProjectService {
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+
+    @Autowired
+    PermissionsContainer permissionsContainer;
 
     public ProjectDto createProject(ProjectDto projectDto, String token) {
         UUID createdByUuid = jwtTokenUtil.getIdAsUuidFromToken(token);
