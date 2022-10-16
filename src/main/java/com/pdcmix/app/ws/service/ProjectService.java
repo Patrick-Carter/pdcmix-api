@@ -1,7 +1,5 @@
 package com.pdcmix.app.ws.service;
 
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -12,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pdcmix.app.ws.io.entity.ProjectEntity;
-import com.pdcmix.app.ws.io.entity.UserEntity;
 import com.pdcmix.app.ws.repo.ProjectRepo;
-import com.pdcmix.app.ws.repo.UserRepo;
 import com.pdcmix.app.ws.security.JwtTokenUtil;
 import com.pdcmix.app.ws.shared.dto.ProjectDto;
 

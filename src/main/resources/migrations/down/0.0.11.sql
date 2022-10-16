@@ -1,0 +1,1 @@
+DELETE FROM permissions WHERE permission IN ('get', 'create', 'update', 'delete');
